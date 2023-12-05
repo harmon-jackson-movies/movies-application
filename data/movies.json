@@ -1,10 +1,34 @@
-
 {
   "movies": [
     {
       "id": 1,
+      "title": "Major Payne",
+      "rating": 5,
+      "movieSummary": ""
+    },
+    {
+      "id": 2,
+      "title": "Top Gun",
+      "rating": 5,
+      "movieSummary": ""
+    },
+    {
+      "id": 3,
       "title": "Shrek",
-      "rating": 5
+      "rating": 5,
+      "movieSummary": ""
+    },
+    {
+      "id": 4,
+      "title": "Shrek",
+      "rating": 5,
+      "movieSummary": ""
+    },
+    {
+      "id": 5,
+      "title": "Shrek",
+      "rating": 5,
+      "movieSummary": ""
     }
   ]
 }
