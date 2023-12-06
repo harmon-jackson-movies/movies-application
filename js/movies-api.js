@@ -7,13 +7,13 @@ export const getMovieByTitle = async (title, year = '') => {
 };
 
 /*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
-function timer() {
+function loadingTimer() {
     setTimeout(() => {
         showMovies()
     }, 3350)
 }
 
-timer();
+loadingTimer();
 
 /*--------------------------------------------------------------------------------- Fetch to get movies from movies.json-*/
 
@@ -41,7 +41,25 @@ function showLoader() {
         .classList.remove("show")
 }
 
-showLoader()
+showLoader();
+
+
+
+// DELETE
+
+export const deleteMovie = async (id) => {
+    try {
+        const url = `http://localhost:3000/movies/${id}`;
+        const options = {
+            method: 'DELETE'
+        };
+        const response = await fetch(url, options);
+        const deletedMovie = await response.json();
+        return deletedMovie;
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 
 
