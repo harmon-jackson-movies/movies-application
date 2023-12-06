@@ -3,32 +3,50 @@
     {
       "id": 1,
       "title": "Major Payne",
+      "year": "1995",
+      "rated": "Pg-13",
       "rating": 5,
-      "movieSummary": ""
+      "movieSummary": "A recently discharged Major finds himself commanding a group of mismatched Cadets."
     },
     {
       "id": 2,
       "title": "Top Gun",
+      "year": "1986",
+      "rated": "PG",
       "rating": 5,
-      "movieSummary": ""
+      "movieSummary": "As students at the United States Navy's elite fighter weapons school compete to be best in the class, one daring young pilot learns a few things from a civilian instructor that are not taught in the classroom."
     },
     {
       "id": 3,
       "title": "Catch Me If You Can",
+      "year": "2002",
+      "rated": "PG-13",
       "rating": 5,
-      "movieSummary": ""
+      "movieSummary": "Barely 21 yet, Frank is a skilled forger who has passed as a doctor, lawyer and pilot. FBI agent Carl becomes obsessed with tracking down the con man, who only revels in the pursuit."
     },
     {
       "id": 4,
       "title": "The Empire Strikes Back",
+      "year": "1980",
+      "rated": "PG",
       "rating": 5,
-      "movieSummary": ""
+      "movieSummary": "After the Rebels are overpowered by the Empire, Luke Skywalker begins his Jedi training with Yoda, while his friends are pursued across the galaxy by Darth Vader and bounty hunter Boba Fett."
     },
     {
       "id": 5,
       "title": "IP Man",
+      "year": "2008",
+      "rated": "R",
       "rating": 2,
-      "movieSummary": ""
+      "movieSummary": "During the Japanese invasion of China, a wealthy martial artist is forced to leave his home when his city is occupied. With little means of providing for themselves, Ip Man and the remaining members of the city must find a way to ..."
+    },
+    {
+      "id": 5,
+      "title": "IP Man",
+      "year": "2008",
+      "rated": "R",
+      "rating": 2,
+      "movieSummary": "During the Japanese invasion of China, a wealthy martial artist is forced to leave his home when his city is occupied. With little means of providing for themselves, Ip Man and the remaining members of the city must find a way to ..."
     }
   ]
 }
