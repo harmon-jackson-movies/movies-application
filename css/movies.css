@@ -4,16 +4,30 @@ body{
     background-color: black !important;
 }
 
+.loader-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: black;
+    z-index: 2500;
+}
 .loader {
     width: 500px;
     height: 250px;
     position: fixed;
     right: 40%;
     bottom:45%;
+    z-index: 3000;
+    background-color: black;
 }
 
-.hideLoader {
+.hide, .loader.hide, .movie-container.hide {
     display: none;
+
+}
+
+.show, .loader.show, .movie-container.show {
+    display: flex;
 }
 
 .circle {
@@ -88,4 +102,24 @@ body{
         transform: translateX(10px);
     }
 }
+
+/*-------------------------------------------------------------------- Card Images*/
+.movie-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+
+.card {
+
+}
+
+.card-img-top, .card {
+    width: 15%;
+    height: 100%;
+
+}
+
+
 

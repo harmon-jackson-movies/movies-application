@@ -9,10 +9,10 @@ export const getMovieByTitle = async (title, year = '') => {
 /*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
 function timer() {
     setTimeout(() => {
-        document.getElementById("loader")
-            .classList.add("hideLoader")
-    }, 3250)
+        showMovies()
+    }, 3350)
 }
+
 timer();
 
 /*--------------------------------------------------------------------------------- Fetch to get movies from movies.json-*/
@@ -22,5 +22,26 @@ export const getMovies = async () => {
     return fetch(movieRequest).then(response => response.json()).then(data => data).catch(err => console.log(err));
 
 };
+
+/*--------------------------------------------------------------------------------- Showing and Hiding Loader/Movies-*/
+
+function showMovies() {
+    document.getElementById("loader")
+        .classList.add("hide")
+        document.getElementById("loader")
+            .classList.remove("show")
+    document.getElementById("movie-container")
+        .classList.add("show")
+}
+
+function showLoader() {
+    document.getElementById("loader")
+        .classList.add("show")
+    document.getElementById("movie-container")
+        .classList.remove("show")
+}
+
+showLoader()
+
 
 
