@@ -10,6 +10,7 @@ body{
     position: fixed;
     background-color: black;
     z-index: 2500;
+
 }
 .loader {
     width: 500px;
@@ -28,6 +29,7 @@ body{
 
 .show, .loader.show, .movie-container.show {
     display: flex;
+
 }
 
 .circle {
@@ -108,6 +110,7 @@ body{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-top: 35px;
 
 }
 
