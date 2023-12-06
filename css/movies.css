@@ -1,8 +1,15 @@
 
 /*--------------------------------------------------------------------Loading Image Animation*/
+body{
+    background-color: black !important;
+}
+
 .loader {
     width: 500px;
     height: 250px;
+    position: fixed;
+    right: 40%;
+    bottom:45%;
 }
 
 .hideLoader {

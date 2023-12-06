@@ -6,7 +6,7 @@ export const getMovieByTitle = async (title, year = '') => {
 
 };
 
-/*---------------------------------------------------------------------------------3 Second Timer for loading image-*/
+/*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
 function timer() {
     setTimeout(() => {
         document.getElementById("loader")
@@ -14,3 +14,13 @@ function timer() {
     }, 3250)
 }
 timer();
+
+/*--------------------------------------------------------------------------------- Fetch to get movies from movies.json-*/
+
+export const getMovies = async () => {
+    let movieRequest = `http://localhost:3000/movies`;
+    return fetch(movieRequest).then(response => response.json()).then(data => data).catch(err => console.log(err));
+
+};
+
+
