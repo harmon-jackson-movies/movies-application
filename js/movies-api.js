@@ -52,16 +52,20 @@ export const createMovie = async (movie) => {
     }
 }
 
-/*--------------------------------------------------------------------------------- Edit Movie with POST -*/
-export const editMovie = async (id) => {
+/*--------------------------------------------------------------------------------- Edit Movie with PUT -*/
+export const editMovie = async (id, movie) => {
     try {
-        const url = `http://localhost:3000/movies/${id}`;
+        const url = `http://localhost:3000/movie/${id}`;
         const options = {
-            method: 'EDIT'
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movie)
         };
         const response = await fetch(url, options);
-        const editMovie = await response.json();
-        return editMovie;
+        const updatedMovie = await response.json();
+        return updatedMovie;
     } catch (error) {
         console.error(error);
     }

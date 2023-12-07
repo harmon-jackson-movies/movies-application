@@ -128,5 +128,26 @@ body{
     color: purple;
 }
 
+/*-------------------------------------------------------------------- Nav Bar*/
+
+#movieForm {
+    color: purple;
+}
+
+.movieTitle:first-letter {
+    text-transform: capitalize
+}
+
+.navbar {
+    border: 2px solid purple;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+    background-color: #6c757d;
+}
+
+body {
+    background: linear-gradient(to bottom, #800080, #000000);
+}
+
+
 
 
