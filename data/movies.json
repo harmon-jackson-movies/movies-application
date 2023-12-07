@@ -41,31 +41,52 @@
       "movieSummary": "During the Japanese invasion of China, a wealthy martial artist is forced to leave his home when his city is occupied. With little means of providing for themselves, Ip Man and the remaining members of the city must find a way to ..."
     },
     {
-      "id": 6
-    },
-    {
       "title": "moana",
       "year": "2016",
       "rated": "PG",
       "rating": 5,
       "movieSummary": "In Ancient Polynesia, when a terrible curse incurred by the Demigod Maui reaches Moana's island, she answers the Ocean's call to seek out the Demigod to set things right.",
+      "id": 6
+    },
+    {
+      "title": "tarzan",
+      "year": "1999",
+      "rated": "G",
+      "rating": 5,
+      "movieSummary": "A man raised by gorillas must decide where he really belongs when he discovers he is a human.",
       "id": 7
     },
     {
-      "title": "tarzan",
-      "year": "1999",
-      "rated": "G",
+      "title": "Meet The Deedles",
+      "year": "1998",
+      "rated": "PG",
       "rating": 5,
-      "movieSummary": "A man raised by gorillas must decide where he really belongs when he discovers he is a human.",
+      "movieSummary": "Two surfers end up as Yellowstone park rangers and have to stop a former ranger who is out for revenge.",
       "id": 8
     },
     {
-      "title": "tarzan",
+      "title": "The Matrix",
       "year": "1999",
+      "rated": "R",
+      "rating": 5,
+      "movieSummary": "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.",
+      "id": 9
+    },
+    {
+      "title": "The Matrix Reloaded",
+      "year": "2003",
+      "rated": "R",
+      "rating": 5,
+      "movieSummary": "Freedom fighters Neo, Trinity and Morpheus continue to lead the revolt against the Machine Army, unleashing their arsenal of extraordinary skills and weaponry against the systematic forces of repression and exploitation.",
+      "id": 10
+    },
+    {
+      "title": "Pokemon 4Ever: Celebi - Voice of the Forest",
+      "year": "2001",
       "rated": "G",
       "rating": 5,
-      "movieSummary": "A man raised by gorillas must decide where he really belongs when he discovers he is a human.",
-      "id": 9
+      "movieSummary": "Ash must stop a hunter who forces the mythical Pokémon Celebi to help him destroy a forest.",
+      "id": 11
     }
   ]
 }

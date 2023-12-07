@@ -5,7 +5,6 @@
 export const getMovieByTitle = async (title, year = '') => {
     let y = year ? `&y=${year}` : '';
     let movieRequest = `http://www.omdbapi.com/?t=${title}${y}&apikey=bd23bfb7`;
-    console.log(movieRequest);
     return fetch(movieRequest).then(response => response.json()).then(data => data).catch(err => console.log(err));
 
 };
@@ -40,13 +39,14 @@ export const createMovie = async (movie) => {
         const options = {
             method: 'POST',
             headers:
-           {
-                'Content-Type': 'application/json'
-            },
+                {
+                    'Content-Type': 'application/json'
+                },
             body: JSON.stringify(movie)
         };
         const response = await fetch(url, options);
         const newMovie = await response.json();
+        console.log(newMovie);
         return newMovie;
     } catch (error) {
         console.error(error);
