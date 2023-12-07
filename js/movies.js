@@ -20,23 +20,27 @@ async function addMovie(movie){
 }
 async function getOtherMovieDetails (title, year) {
   let movies =  await getMovieByTitle(title, year)
-    let movieDetails = {rated:movies.Rated, movieSummary:movies.Plot, year:movies.Year}
+    let movieDetails = {rated:movies.Rated, movieSummary:movies.Plot, year:movies.Year,title: movies.Title}
     return movieDetails;
 }
 
 document.querySelector("#addMovieButton").addEventListener("click", async (e) => {
+    showLoader();
+    startLoadingTimer(3350);
     let movieTitle = document.getElementById("title").value
+    var newMovieTitle = movieTitle.replace(' ', '+');
     let movieYear = document.getElementById("year").value
 
-    let movieDetails = await getOtherMovieDetails (movieTitle, movieYear)
+    let movieDetails = await getOtherMovieDetails (newMovieTitle, movieYear)
     let fullMovie = {
-        title: movieTitle,
-        year: movieYear || movieDetails.year,
+        title: movieDetails.title,
+        year: movieDetails.year,
         rated: movieDetails.rated,
         rating: 5,
         movieSummary: movieDetails.movieSummary
     }
-    return addMovie(fullMovie)
+    allMovies.push(await addMovie(fullMovie));
+    await displayMovies(allMovies);
     })
 
 
@@ -77,7 +81,6 @@ async function insertMovieDetails(newMovieCard, movie) {
     let deleteButton = addDeleteButton(movie)
     let editButton = addEditButton(movie)
     deleteButton.addEventListener('click', async (event) => {
-        console.log(movie);
         await removeMovie(movie.id)
     })
     newMovieCard.querySelector(".card-body").appendChild(editButton)
@@ -96,6 +99,7 @@ async function insertMovieDetails(newMovieCard, movie) {
 // Looping through the json and creating a card for each movie in the array, also runs function to insert movie data on each card
 
 async function displayMovies() {
+    document.getElementById('movie-container').innerHTML = "";
     for (let i = 0; i < allMovies.length; i++) {
         let newCard = createCard()
         await insertMovieDetails(newCard, allMovies[i])
@@ -160,10 +164,10 @@ function showMovies() {
 
 /*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
 // the timer will be 3350 in production, but for development and testing it will be 0
-function startLoadingTimer() {
+function startLoadingTimer(timer) {
     setTimeout(() => {
         showMovies()
-    }, 0)
+    }, timer || 0)
 }
 // shows Loaders
 showLoader();
