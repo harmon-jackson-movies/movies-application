@@ -1,7 +1,7 @@
 // ********************************** Imports **********************************
 //
 // getMoviesTitle function and other AI functions from API file
-import {getMovieByTitle, getMovies, deleteMovie, createMovie} from './movies-api.js';
+import {getMovieByTitle, getMovies, deleteMovie, createMovie, editMovie} from './movies-api.js';
 import {myAddModel} from './modal.js';
 
 //********************************** Variable Declarations Logic **********************************
@@ -18,6 +18,10 @@ const allMovies = [...moviesFromJsonArr];
 
 async function addMovie(movie) {
     return await createMovie(movie);
+}
+
+async function updateMovie (id, movie) {
+    return await editMovie(id, movie)
 }
 
 // Gets the Movie Details From API needed that arent provided by the user
@@ -82,10 +86,15 @@ function addDeleteButton() {
 //---------------------------------------------------- Edit Movie button for adding to specific movie card, used in insertMovieDetails function
 
 function addEditButton() {
-    let editButton = document.createElement('button');
-    editButton.classList.add(...['btn', 'btn-primary']);
-    editButton.innerText = "EDIT";
-    return editButton;
+      let editButton = document.createElement('button');
+  // editButton.classList.add(...['btn', 'btn-primary']);
+  editButton.className = "btn btn-primary";
+  editButton.setAttribute('data-bs-toggle', "modal");
+  editButton.setAttribute('data-bs-target', "#editModal");
+
+  editButton.type = 'button';
+  editButton.innerText = "EDIT";
+  return editButton;
 }
 
 //********************************** Movie Data Inserting to Card Logic **********************************
@@ -96,6 +105,7 @@ async function insertMovieDetails(newMovieCard, movie) {
     newMovieCard.querySelector(".card-img-top").src = getMoviePoster.Poster
     newMovieCard.querySelector(".movieTitle").innerHTML = `<strong>Title:</strong> ${movie.title}`
     newMovieCard.querySelector(".movieRated").innerHTML = `<strong>Rated:</strong> ${movie.rated}`
+    newMovieCard.querySelector(".movieYear").innerHTML = `<strong>Year:</strong> ${movie.year}`
     newMovieCard.querySelector(".movieRating").innerHTML = `<strong>Rating:</strong> ${movie.rating}`
     newMovieCard.querySelector(".movieSummary").innerHTML = `<strong>Summary:</strong> ${movie.movieSummary}`
     let deleteButton = addDeleteButton(movie)
@@ -103,6 +113,7 @@ async function insertMovieDetails(newMovieCard, movie) {
     deleteButton.addEventListener('click', async (event) => {
         await removeMovie(movie.id)
     })
+
     newMovieCard.querySelector(".card-body").appendChild(editButton)
     newMovieCard.querySelector(".card-body").appendChild(deleteButton)
 
@@ -148,6 +159,9 @@ function createCard() {
     const movieRated = document.createElement("p");
     movieRated.classList.add("card-text", "movieRated");
 
+    const movieYear = document.createElement("p");
+    movieRated.classList.add("card-text", "movieYear");
+
     const movieRating = document.createElement("p");
     movieRating.classList.add("card-text", "movieRating");
 
@@ -158,6 +172,7 @@ function createCard() {
     movieCard.appendChild(movieCardBody);
     movieCardBody.appendChild(movieTitle);
     movieCardBody.appendChild(movieRated);
+    movieCardBody.appendChild(movieYear);
     movieCardBody.appendChild(movieRating);
     movieCardBody.appendChild(movieSummary);
 
