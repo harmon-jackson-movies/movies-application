@@ -1,3 +1,7 @@
+// ********************************** THis file contains only direct API calls to the movies JSON and OMDB, movies.js file will
+// contain functions that call these API calls below
+
+// API used for OMDB to get posters
 export const getMovieByTitle = async (title, year = '') => {
     let y = year ? `&y=${year}` : '';
     let movieRequest = `http://www.omdbapi.com/?t=${title}${y}&apikey=bd23bfb7`;
@@ -5,15 +9,6 @@ export const getMovieByTitle = async (title, year = '') => {
     return fetch(movieRequest).then(response => response.json()).then(data => data).catch(err => console.log(err));
 
 };
-
-/*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
-function loadingTimer() {
-    setTimeout(() => {
-        showMovies()
-    }, 3350)
-}
-
-loadingTimer();
 
 /*--------------------------------------------------------------------------------- Fetch to get movies from movies.json-*/
 
@@ -23,29 +18,7 @@ export const getMovies = async () => {
 
 };
 
-/*--------------------------------------------------------------------------------- Showing and Hiding Loader/Movies-*/
-
-function showMovies() {
-    document.getElementById("loader")
-        .classList.add("hide")
-        document.getElementById("loader")
-            .classList.remove("show")
-    document.getElementById("movie-container")
-        .classList.add("show")
-}
-
-function showLoader() {
-    document.getElementById("loader")
-        .classList.add("show")
-    document.getElementById("movie-container")
-        .classList.remove("show")
-}
-
-showLoader();
-
-
-
-//-------------------------------------------------------------------------------- DELETE
+//-------------------------------------------------------------------------------- DELETE FETCH CALL
 
 export const deleteMovie = async (id) => {
     try {
