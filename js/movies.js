@@ -1,5 +1,5 @@
 // Imports getMoviesTitle function from API file and adding a timeout for loading image
-import {getMovieByTitle, getMovies, deleteMovie} from './movies-api.js'
+import {getMovieByTitle, getMovies, deleteMovie, createMovie} from './movies-api.js'
 
 // ---------------------------------------------------------------------------- Adding info from json variable
 let getAllMovies = await getMovies();
@@ -53,7 +53,6 @@ async function displayMovies() {
         let newCard = createCard()
         await insertMovieDetails(newCard, getAllMovies[i])
 
-
     }
 }
 
@@ -64,22 +63,23 @@ async function insertMovieDetails(newCard, movie) {
     let getMoviePoster = await getMovieByTitle(movie.title, movie.year)
     newCard.querySelector(".card-img-top").src = getMoviePoster.Poster
     let deleteButton = addDeleteButton(movie)
-
+    let editButton = addEditButton(movie)
     deleteButton.addEventListener('click', async (event) => {
         console.log(movie);
         await removeMovie(movie.id)
     })
+    newCard.querySelector(".card-body").appendChild(editButton)
     newCard.querySelector(".card-body").appendChild(deleteButton)
+
 
 
     document.getElementById("movie-container").appendChild(newCard)
 }
 
-// Delete Movie
 async function removeMovie(id) {
     return await deleteMovie(id);
 }
-
+//----------------------------------------------------------------------------  Delete Movie button
 function addDeleteButton() {
     let deleteButton = document.createElement('button');
     deleteButton.classList.add(...['btn', 'btn-danger']);
@@ -87,6 +87,16 @@ function addDeleteButton() {
     deleteButton.disabled = true;
     return deleteButton;
 }
+
+//---------------------------------------------------------------------------- Edit Movie button
+
+function addEditButton() {
+    let editButton = document.createElement('button');
+    editButton.classList.add(...['btn', 'btn-primary']);
+    editButton.innerText = "EDIT";
+    return editButton;
+}
+
 
 
 

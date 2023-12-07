@@ -45,7 +45,7 @@ showLoader();
 
 
 
-// DELETE
+//-------------------------------------------------------------------------------- DELETE
 
 export const deleteMovie = async (id) => {
     try {
@@ -56,6 +56,40 @@ export const deleteMovie = async (id) => {
         const response = await fetch(url, options);
         const deletedMovie = await response.json();
         return deletedMovie;
+    } catch (error) {
+        console.error(error);
+    }
+}
+/*--------------------------------------------------------------------------------- Create Movie with POST -*/
+export const createMovie = async (movie) => {
+    try {
+        const url = 'http://localhost:3000/movies';
+        const options = {
+            method: 'POST',
+            headers:
+           {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movie)
+        };
+        const response = await fetch(url, options);
+        const newMovie = await response.json();
+        return newMovie;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+/*--------------------------------------------------------------------------------- Edit Movie with POST -*/
+export const editMovie = async (id) => {
+    try {
+        const url = `http://localhost:3000/movies/${id}`;
+        const options = {
+            method: 'EDIT'
+        };
+        const response = await fetch(url, options);
+        const editMovie = await response.json();
+        return editMovie;
     } catch (error) {
         console.error(error);
     }
