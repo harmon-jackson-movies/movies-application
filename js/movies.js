@@ -15,23 +15,33 @@ const allMovies = [...moviesFromJsonArr];
 //**********************************Api Calls Logic **********************************
 // Calls add function of movie by id
 
-async function addMovie(movie){
+async function addMovie(movie) {
     return await createMovie(movie);
 }
-async function getOtherMovieDetails (title, year) {
-  let movies =  await getMovieByTitle(title, year)
-    let movieDetails = {rated:movies.Rated, movieSummary:movies.Plot, year:movies.Year,title: movies.Title}
+
+// Gets the Movie Details From API needed that arent provided by the user
+async function getOtherMovieDetails(title, year) {
+    let movies = await getMovieByTitle(title, year)
+    let movieDetails = {rated: movies.Rated, movieSummary: movies.Plot, year: movies.Year, title: movies.Title}
     return movieDetails;
 }
-
+// Event Listener for addMovieButton
 document.querySelector("#addMovieButton").addEventListener("click", async (e) => {
     showLoader();
     startLoadingTimer(3350);
-    let movieTitle = document.getElementById("title").value
-    var newMovieTitle = movieTitle.replace(' ', '+');
-    let movieYear = document.getElementById("year").value
 
-    let movieDetails = await getOtherMovieDetails (newMovieTitle, movieYear)
+    let movieTitle = document.getElementById("title").value
+    let newMovieTitle = movieTitle.replace(' ', '+');
+    let movieYear = document.getElementById("year").value
+    // Get other Details
+    let movieDetails = await getOtherMovieDetails(newMovieTitle, movieYear);
+
+    // Couldn't Find the movie Halt further execution
+    if (!movieDetails.title) {
+        alert(`No Movie Found`);
+        return;
+    }
+
     let fullMovie = {
         title: movieDetails.title,
         year: movieDetails.year,
@@ -39,9 +49,14 @@ document.querySelector("#addMovieButton").addEventListener("click", async (e) =>
         rating: 5,
         movieSummary: movieDetails.movieSummary
     }
+    // Reset Add Form
+    document.getElementById("movieForm").reset();
+
+    // Add new created movie to the all movies array
     allMovies.push(await addMovie(fullMovie));
+    // Renders new Movie Array
     await displayMovies(allMovies);
-    })
+})
 
 
 // Calls delete function of movie by id
@@ -95,7 +110,6 @@ async function insertMovieDetails(newMovieCard, movie) {
 //********************************** Creating Movie Card HTML, Displaying Movies Logic, Loading Logic **********************************
 
 
-
 // Looping through the json and creating a card for each movie in the array, also runs function to insert movie data on each card
 
 async function displayMovies() {
@@ -106,6 +120,7 @@ async function displayMovies() {
 
     }
 }
+
 // Render movies to page
 await displayMovies()
 
@@ -153,6 +168,7 @@ function showLoader() {
 }
 
 /*--------------------------------------------------------------------------------- Showing and Hiding Loader/Movies-*/
+
 // show Movies and hides loader
 function showMovies() {
     // grab loader html and adds the hide class, this removes the loader from the page
@@ -163,12 +179,14 @@ function showMovies() {
 }
 
 /*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
+
 // the timer will be 3350 in production, but for development and testing it will be 0
 function startLoadingTimer(timer) {
     setTimeout(() => {
         showMovies()
     }, timer || 0)
 }
+
 // shows Loaders
 showLoader();
 // then starts timer for the loader that will event, this is a simulated loading process because the movie data fetch is too fast and we want to give the illusion to the user that the page is actually loading
