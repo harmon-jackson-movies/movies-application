@@ -39,6 +39,33 @@
       "rated": "R",
       "rating": 2,
       "movieSummary": "During the Japanese invasion of China, a wealthy martial artist is forced to leave his home when his city is occupied. With little means of providing for themselves, Ip Man and the remaining members of the city must find a way to ..."
+    },
+    {
+      "id": 6
+    },
+    {
+      "title": "moana",
+      "year": "2016",
+      "rated": "PG",
+      "rating": 5,
+      "movieSummary": "In Ancient Polynesia, when a terrible curse incurred by the Demigod Maui reaches Moana's island, she answers the Ocean's call to seek out the Demigod to set things right.",
+      "id": 7
+    },
+    {
+      "title": "tarzan",
+      "year": "1999",
+      "rated": "G",
+      "rating": 5,
+      "movieSummary": "A man raised by gorillas must decide where he really belongs when he discovers he is a human.",
+      "id": 8
+    },
+    {
+      "title": "tarzan",
+      "year": "1999",
+      "rated": "G",
+      "rating": 5,
+      "movieSummary": "A man raised by gorillas must decide where he really belongs when he discovers he is a human.",
+      "id": 9
     }
   ]
 }

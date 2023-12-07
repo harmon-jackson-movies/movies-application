@@ -13,6 +13,32 @@ const moviesFromJsonArr = await getMovies();
 const allMovies = [...moviesFromJsonArr];
 
 //**********************************Api Calls Logic **********************************
+// Calls add function of movie by id
+
+async function addMovie(movie){
+    return await createMovie(movie);
+}
+async function getOtherMovieDetails (title, year) {
+  let movies =  await getMovieByTitle(title, year)
+    let movieDetails = {rated:movies.Rated, movieSummary:movies.Plot, year:movies.Year}
+    return movieDetails;
+}
+
+document.querySelector("#addMovieButton").addEventListener("click", async (e) => {
+    let movieTitle = document.getElementById("title").value
+    let movieYear = document.getElementById("year").value
+
+    let movieDetails = await getOtherMovieDetails (movieTitle, movieYear)
+    let fullMovie = {
+        title: movieTitle,
+        year: movieYear || movieDetails.year,
+        rated: movieDetails.rated,
+        rating: 5,
+        movieSummary: movieDetails.movieSummary
+    }
+    return addMovie(fullMovie)
+    })
+
 
 // Calls delete function of movie by id
 async function removeMovie(id) {
@@ -29,7 +55,7 @@ function addDeleteButton() {
     return deleteButton;
 }
 
-//---------------------------------------------------------------------------- Edit Movie button for adding to specific movie card, used in insertMovieDetails function
+//---------------------------------------------------- Edit Movie button for adding to specific movie card, used in insertMovieDetails function
 
 function addEditButton() {
     let editButton = document.createElement('button');
