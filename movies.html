@@ -18,18 +18,8 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <!--------------------------------------------------------------------------------- Add Form -->
-        <form id="movieForm">
-            <label for="title">Movie Title: </label>
-            <input type="text" id="title" name="title" required>
 
-            <!--   <label for="rating">Movie Rating: </label>-->
-            <input type="hidden" id="rating" name="rating" required>
-
-            <label for="year">Year: </label>
-            <input type="text" id="year" name="year">
-
-            <button type="button" id="addMovieButton">Add Movie</button>
-        </form>
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" data-bs-whatever="@mdo">Add Movie</button>
     </div>
 </nav>
 <main id="container-fluid">
@@ -47,11 +37,62 @@
 
 
 
+
+
+<!--    Add Model -->
+
+<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>-->
+<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>-->
+<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>-->
+
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add a Movie</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<!--                    <form>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="recipient-name" class="col-form-label">Recipient:</label>-->
+<!--                            <input type="text" class="form-control" id="recipient-name">-->
+<!--                        </div>-->
+<!--                        <div class="mb-3">-->
+<!--                            <label for="message-text" class="col-form-label">Message:</label>-->
+<!--                            <textarea class="form-control" id="message-text"></textarea>-->
+<!--                        </div>-->
+<!--                    </form>-->
+
+                    <form id="movieForm">
+                        <label for="title" class="col-form-label">Movie Title: </label>
+                        <input type="text" id="title" name="title" class="form-control" required>
+
+                        <!--   <label for="rating">Movie Rating: </label>-->
+<!--                        <input type="hidden" id="rating"  name="rating" required>-->
+
+                        <label for="year" class="col-form-label">Year: </label>
+                        <input type="text" id="year" class="form-control" name="year">
+
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="addMovieButton" class="btn btn-primary">Add Movie</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+<script type="module" src="js/modal.js"></script>
 <script type="module" src="js/movies.js"></script>
-
 </body>
 </html>

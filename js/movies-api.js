@@ -46,7 +46,6 @@ export const createMovie = async (movie) => {
         };
         const response = await fetch(url, options);
         const newMovie = await response.json();
-        console.log(newMovie);
         return newMovie;
     } catch (error) {
         console.error(error);

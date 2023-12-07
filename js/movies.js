@@ -2,6 +2,7 @@
 //
 // getMoviesTitle function and other AI functions from API file
 import {getMovieByTitle, getMovies, deleteMovie, createMovie} from './movies-api.js';
+import {myAddModel} from './modal.js';
 
 //********************************** Variable Declarations Logic **********************************
 
@@ -30,13 +31,12 @@ async function getOtherMovieDetails(title, year) {
 document.querySelector("#addMovieButton").addEventListener("click", async (e) => {
     showLoader();
     startLoadingTimer(3350);
-
+    myAddModel.hide();
     let movieTitle = document.getElementById("title").value
     let newMovieTitle = movieTitle.replace(' ', '+');
     let movieYear = document.getElementById("year").value
     // Get other Details
     let movieDetails = await getOtherMovieDetails(newMovieTitle, movieYear);
-
     // Couldn't Find the movie Halt further execution
     if (!movieDetails.title) {
         alert(`No Movie Found`);
@@ -119,7 +119,7 @@ async function insertMovieDetails(newMovieCard, movie) {
 
 async function displayMovies(movies) {
     document.getElementById('movie-container').innerHTML = "";
-    for (let i = movies.length-1; i >= 0; i--) {
+    for (let i = movies.length - 1; i >= 0; i--) {
         let newCard = createCard()
         await insertMovieDetails(newCard, movies[i])
 

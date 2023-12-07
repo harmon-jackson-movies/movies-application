@@ -55,6 +55,46 @@
       "rating": 5,
       "movieSummary": "A man raised by gorillas must decide where he really belongs when he discovers he is a human.",
       "id": 7
+    },
+    {
+      "title": "Pirates",
+      "year": "1986",
+      "rated": "PG-13",
+      "rating": 5,
+      "movieSummary": "The adventures of pirate Captain Red and his first mate Frog.",
+      "id": 8
+    },
+    {
+      "title": "Tarzan 2: The Legend Begins",
+      "year": "2005",
+      "rated": "G",
+      "rating": 5,
+      "movieSummary": "The tale of Tarzan's misadventures as a boy as he searches for his true identity and the meaning of family.",
+      "id": 9
+    },
+    {
+      "title": "One Hundred and One Dalmatians",
+      "year": "1961",
+      "rated": "G",
+      "rating": 5,
+      "movieSummary": "When a litter of Dalmatian puppies are abducted by the minions of Cruella De Vil, the owners must find them before she uses them for a diabolical fashion statement.",
+      "id": 10
+    },
+    {
+      "title": "Dumb and Dumber",
+      "year": "1994",
+      "rated": "PG-13",
+      "rating": 5,
+      "movieSummary": "After a woman leaves a briefcase at the airport terminal, a dumb limo driver and his dumber friend set out on a hilarious cross-country road trip to Aspen to return it.",
+      "id": 11
+    },
+    {
+      "title": "Year One",
+      "year": "2009",
+      "rated": "PG-13",
+      "rating": 5,
+      "movieSummary": "After being banished from their tribe, two hunter-gatherers encounter Biblical characters and eventually wind up in the city of Sodom.",
+      "id": 12
     }
   ]
 }
