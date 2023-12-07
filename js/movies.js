@@ -33,10 +33,10 @@ document.querySelector("#addMovieButton").addEventListener("click", async (e) =>
         title: movieTitle,
         year: movieYear || movieDetails.year,
         rated: movieDetails.rated,
-        rating: movie.rating,
+        rating: 5,
         movieSummary: movieDetails.movieSummary
     }
-    return addMovie()
+    return addMovie(fullMovie)
     })
 
 
