@@ -25,6 +25,7 @@ async function getOtherMovieDetails(title, year) {
     let movieDetails = {rated: movies.Rated, movieSummary: movies.Plot, year: movies.Year, title: movies.Title}
     return movieDetails;
 }
+
 // Event Listener for addMovieButton
 document.querySelector("#addMovieButton").addEventListener("click", async (e) => {
     showLoader();
@@ -61,7 +62,11 @@ document.querySelector("#addMovieButton").addEventListener("click", async (e) =>
 
 // Calls delete function of movie by id
 async function removeMovie(id) {
-    return await deleteMovie(id);
+    showLoader();
+    startLoadingTimer(3350);
+    await deleteMovie(id);
+    let newMovieArray = allMovies.filter((movie) => movie.id !== id);
+    await displayMovies(newMovieArray);
 }
 
 //- Delete Movie button for adding to specific movie card, used in insertMovieDetails function
@@ -70,7 +75,7 @@ function addDeleteButton() {
     deleteButton.classList.add(...['btn', 'btn-danger']);
     deleteButton.innerText = "DELETE";
     // in production this will only disable while the Delete Call is loading/pending, disabled now to prevent deleting our movies during development
-    deleteButton.disabled = true;
+    // deleteButton.disabled = true;
     return deleteButton;
 }
 
@@ -112,17 +117,17 @@ async function insertMovieDetails(newMovieCard, movie) {
 
 // Looping through the json and creating a card for each movie in the array, also runs function to insert movie data on each card
 
-async function displayMovies() {
+async function displayMovies(movies) {
     document.getElementById('movie-container').innerHTML = "";
-    for (let i = 0; i < allMovies.length; i++) {
+    for (let i = 0; i < movies.length; i++) {
         let newCard = createCard()
-        await insertMovieDetails(newCard, allMovies[i])
+        await insertMovieDetails(newCard, movies[i])
 
     }
 }
 
 // Render movies to page
-await displayMovies()
+await displayMovies(allMovies)
 
 // ---------------------------------------------------------------------------- Create Card HTML - no movie data inserted on card yet, just html
 
