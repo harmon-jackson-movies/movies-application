@@ -44,6 +44,10 @@ function addEditButton() {
 async function insertMovieDetails(newMovieCard, movie) {
     let getMoviePoster = await getMovieByTitle(movie.title, movie.year)
     newMovieCard.querySelector(".card-img-top").src = getMoviePoster.Poster
+    newMovieCard.querySelector(".movieTitle").innerHTML = `<strong>Title:</strong> ${movie.title}`
+    newMovieCard.querySelector(".movieRated").innerHTML = `<strong>Rated:</strong> ${movie.rated}`
+    newMovieCard.querySelector(".movieRating").innerHTML = `<strong>Rating:</strong> ${movie.rating}`
+    newMovieCard.querySelector(".movieSummary").innerHTML = `<strong>Summary:</strong> ${movie.movieSummary}`
     let deleteButton = addDeleteButton(movie)
     let editButton = addEditButton(movie)
     deleteButton.addEventListener('click', async (event) => {
@@ -89,16 +93,16 @@ function createCard() {
     movieCardBody.classList.add("card-body");
 
     const movieTitle = document.createElement("p");
-    movieTitle.classList.add("card-text");
+    movieTitle.classList.add("card-text", "movieTitle");
 
     const movieRated = document.createElement("p");
-    movieRated.classList.add("card-text");
+    movieRated.classList.add("card-text", "movieRated");
 
     const movieRating = document.createElement("p");
-    movieRating.classList.add("card-text");
+    movieRating.classList.add("card-text", "movieRating");
 
     const movieSummary = document.createElement("p");
-    movieSummary.classList.add("card-text");
+    movieSummary.classList.add("card-text", "movieSummary");
 
     movieCard.appendChild(movieCardImage);
     movieCard.appendChild(movieCardBody);
