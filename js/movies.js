@@ -119,7 +119,7 @@ async function insertMovieDetails(newMovieCard, movie) {
 
 async function displayMovies(movies) {
     document.getElementById('movie-container').innerHTML = "";
-    for (let i = 0; i < movies.length; i++) {
+    for (let i = movies.length-1; i >= 0; i--) {
         let newCard = createCard()
         await insertMovieDetails(newCard, movies[i])
 
