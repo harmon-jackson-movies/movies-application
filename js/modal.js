@@ -39,15 +39,16 @@ if (editModal) {
 
 async function saveEdits() {
     // Retrieve data from the modal elements
-    // input1
-    let movieId = +document.getElementById('movieId').value;
+
+    let movieId = +document.getElementById('movieId').value;  // input1
     let title = document.getElementById('editTitle').value;// input2
     let year = document.getElementById('editYear').value; // input3
     let rated = document.getElementById('editRated').value;  // input4
-
+    let movieSummary = document.getElementById('editSummary').value;  // input4
+    let genre = document.getElementById('editGenre').value;  // input4
     myEditModel.hide();
 
-    let updatedMovie = await updateMovie(movieId, {rated, title, year});
+    let updatedMovie = await updateMovie(movieId, {rated, title, year, movieSummary, genre});
 
     let fullMovie = {
         title: updatedMovie.title,
@@ -55,7 +56,8 @@ async function saveEdits() {
         rated: updatedMovie.rated,
         rating: 5,
         movieSummary: updatedMovie.movieSummary,
-        id: updatedMovie.id
+        id: updatedMovie.id,
+        genre: updatedMovie.genre
     }
 
 

@@ -49,11 +49,10 @@
       "id": 6
     },
     {
+      "rated": "G",
       "title": "tarzan",
       "year": "1999",
-      "rated": "G",
-      "rating": 5,
-      "movieSummary": "A man raised by gorillas must decide where he really belongs when he discovers he is a human.",
+      "movieSummary": "Tarzan was abandoned by the people who were supposed to love him",
       "id": 7
     },
     {
@@ -81,6 +80,21 @@
       "title": "Year One",
       "year": "2010",
       "id": 12
+    },
+    {
+      "title": "The Iron Giant",
+      "year": "1999",
+      "rated": "PG",
+      "rating": 5,
+      "movieSummary": "A young boy befriends a giant robot from outer space that a paranoid government agent wants to destroy.",
+      "id": 13
+    },
+    {
+      "rated": "Rating Not Found",
+      "title": "TV Screen and Windows",
+      "year": "3000",
+      "movieSummary": "This is my summary",
+      "id": 14
     }
   ]
 }
