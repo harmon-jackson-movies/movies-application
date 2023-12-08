@@ -150,10 +150,6 @@ body {
     background-color: #6c757d;
 }
 
-body {
-    background: linear-gradient(to bottom, #af9be5, #000000);
-}
-
 .navbar-brand .green-u::first-letter {
     color: green;
 }
@@ -194,6 +190,27 @@ body {
 button#addModalButton {
     position: absolute;
     right: 315px;
+}
+
+.btn-danger{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    margin-top: 20px;
+}
+.btn-primary{
+    position: absolute;
+    bottom: 10px;
+    margin-top: 20px;
+}
+
+.movieSummary {
+    margin-bottom: 45px;
+}
+
+#addMovieButton{
+    position: absolute;
+    left: 40px;
 }
 
 

@@ -18,8 +18,8 @@
             MovieH<span style="color: red;">Ü</span>B
         </a>
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Movie Name" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input id="searchMovie" class="form-control me-2" type="search" placeholder="Search Movie Name" aria-label="Search">
+            <button id="searchButton" class="btn btn-outline-success" type="button">Search</button>
         </form>
         <!--------------------------------------------------------------------------------- Add Form -->
 
@@ -37,7 +37,9 @@
         </svg>
     </div>
     <!--------------------------------------------------------------------------------- Container for Movies -->
+
     <div id="movie-container" class="movie-container hide"></div>
+
 
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -47,16 +49,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!--                    <form>-->
-                    <!--                        <div class="mb-3">-->
-                    <!--                            <label for="recipient-name" class="col-form-label">Recipient:</label>-->
-                    <!--                            <input type="text" class="form-control" id="recipient-name">-->
-                    <!--                        </div>-->
-                    <!--                        <div class="mb-3">-->
-                    <!--                            <label for="message-text" class="col-form-label">Message:</label>-->
-                    <!--                            <textarea class="form-control" id="message-text"></textarea>-->
-                    <!--                        </div>-->
-                    <!--                    </form>-->
 
                     <form id="movieForm">
                         <label for="title" class="col-form-label">Movie Title: </label>

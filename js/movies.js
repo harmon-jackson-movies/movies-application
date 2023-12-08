@@ -24,30 +24,33 @@ async function addMovie(movie) {
 // Gets the Movie Details From API needed that arent provided by the user
 async function getOtherMovieDetails(title, year) {
     let movies = await getMovieByTitle(title, year)
-    let movieDetails = {rated: movies.Rated, movieSummary: movies.Plot, year: movies.Year, title: movies.Title}
+    let movieDetails = {
+        rated: movies.Rated,
+        movieSummary: movies.Plot,
+        year: movies.Year,
+        title: movies.Title,
+        genre: movies.Genre
+    }
     return movieDetails;
 }
 
 // Event Listener for addMovieButton
 document.querySelector("#addMovieButton").addEventListener("click", async (e) => {
     myAddModel.hide();
-    let movieTitle = document.getElementById("title").value
+    let movieTitle = document.getElementById("title").value;
     let newMovieTitle = movieTitle.replace(' ', '+');
-    let movieYear = document.getElementById("year").value
+    let movieYear = document.getElementById("year").value;
     // Get other Details
     let movieDetails = await getOtherMovieDetails(newMovieTitle, movieYear);
-    // Couldn't Find the movie Halt further execution
-    if (!movieDetails.title) {
-        alert(`No Movie Found`);
-        return;
-    }
+
 
     let fullMovie = {
-        title: movieDetails.title,
-        year: movieDetails.year,
-        rated: movieDetails.rated,
+        title: movieDetails.title || movieTitle,
+        year: movieDetails.year || movieYear,
+        rated: movieDetails.rated || "Rating Not Found",
         rating: 5,
-        movieSummary: movieDetails.movieSummary
+        movieSummary: movieDetails.movieSummary || "Summary Not Found",
+        genre: movieDetails.genre || "Genre Not Found"
     }
     // Reset Add Form
     document.getElementById("movieForm").reset();
@@ -107,6 +110,12 @@ function modalHtmlCreation(movie) {
 
           <label for="editRated" class="col-form-label">Rated: </label>
           <input type="text" value="${movie.rated}" id="editRated" class="form-control" name="rated" required>
+          
+                <label for="editGenre" class="col-form-label">Genre: </label>
+          <input type="text" value="${movie.genre}" id="editGenre" class="form-control" name="genre" required>
+          
+            <label for="editSummary" class="col-form-label">Summary: </label>
+          <input type="text" value="${movie.movieSummary}" id="editSummary" class="form-control" name="rated" required>
     
     </form>`
     return {content};
@@ -117,13 +126,14 @@ function modalHtmlCreation(movie) {
 // ---------------------------------------------------------------------------- Inserting Movie Details on Cards
 async function insertMovieDetails(newMovieCard, movie) {
     let getOtherMovieDetails = await getMovieByTitle(movie.title, movie.year)
-    newMovieCard.querySelector(".card-img-top").src = getOtherMovieDetails.Poster
+    newMovieCard.querySelector(".card-img-top").src = getOtherMovieDetails.Poster || '../assests/placeholder.jpeg'
     newMovieCard.querySelector(".card-img-top").alt = movie.title || getOtherMovieDetails.Title;
     newMovieCard.querySelector(".movieTitle").innerHTML = `<strong>Title:</strong> ${movie.title || getOtherMovieDetails.Title}`
     newMovieCard.querySelector(".movieRated").innerHTML = `<strong>Rated:</strong> ${movie.rated || getOtherMovieDetails.Rated}`
+    newMovieCard.querySelector(".movieGenre").innerHTML = `<strong>Genre:</strong> ${movie.genre || getOtherMovieDetails.Genre || "Genre Not Found"}`
     newMovieCard.querySelector(".movieYear").innerHTML = `<strong>Year:</strong> ${movie.year || getOtherMovieDetails.Year}`
     // newMovieCard.querySelector(".movieRating").innerHTML = `<strong>Rating:</strong> ${movie.rating || 5}`
-    newMovieCard.querySelector(".movieSummary").innerHTML = `<strong>Summary:</strong> ${movie.movieSummary || getOtherMovieDetails.Plot}`
+    newMovieCard.querySelector(".movieSummary").innerHTML = `<strong>Summary:</strong> ${movie.movieSummary || getOtherMovieDetails.Plot || "Summary Not Found"}`
     let deleteButton = addDeleteButton()
     let editButton = addEditButton(movie)
     deleteButton.addEventListener('click', async (event) => {
@@ -175,6 +185,9 @@ function createCard() {
     const movieRated = document.createElement("p");
     movieRated.classList.add("card-text", "movieRated");
 
+    const movieGenre = document.createElement("p");
+    movieGenre.classList.add("card-text", "movieGenre");
+
     const movieYear = document.createElement("p");
     movieYear.classList.add("card-text", "movieYear");
 
@@ -201,7 +214,7 @@ function createCard() {
     movieCardBody.appendChild(movieTitle);
     movieCardBody.appendChild(movieRated);
     movieCardBody.appendChild(movieYear);
-    // movieCardBody.appendChild(movieRating);
+    movieCardBody.appendChild(movieGenre);
     movieCardBody.appendChild(starIcons);
     movieCardBody.appendChild(movieSummary);
 
@@ -231,18 +244,46 @@ function showMovies() {
 
 /*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
 
-// the timer will be 3350 in production, but for development and testing it will be 0
+// the timer will be 2350 in production, but for development and testing it will be 0
 export function startLoadingTimer(timer) {
     setTimeout(() => {
         showMovies()
+        document.body.style.background = "linear-gradient(to bottom, #af9be5, #000000)";
     }, timer)
 }
 
 // shows Loaders
-showLoader(3350);
+showLoader();
 // then starts timer for the loader that will event, this is a simulated loading process because the movie data fetch is too fast and we want to give the illusion to the user that the page is actually loading
-startLoadingTimer();
+startLoadingTimer(2350);
 
+// ********** Search Code **************
+async function searchMovies(search) {
+    console.log(search);
+
+    let lowerCasedSearch = search.toLowerCase().toString();
+    if (!search) {
+        console.log('if');
+        return displayMovies(await getMovies());
+    } else {
+        console.log('else');
+        let movies = [...allMovies]
+        let searchedMovies = movies.filter((movie) => movie.title.toLowerCase().includes(lowerCasedSearch) || movie?.genre?.toLowerCase()?.includes(lowerCasedSearch) || movie.year.toLowerCase().includes(lowerCasedSearch) || movie.rated.toLowerCase().includes(lowerCasedSearch))
+        await displayMovies(searchedMovies);
+    }
+}
+
+document.getElementById('searchButton').addEventListener("click", async () => {
+    await searchMovies(document.getElementById('searchMovie').value);
+})
+
+document.getElementById('searchMovie').addEventListener("keyup", async (event) => {
+    console.log(document.getElementById('searchMovie').value)
+    console.log(event.keyCode);
+    await searchMovies(document.getElementById('searchMovie').value);
+
+
+})
 
 
 
