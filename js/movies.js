@@ -1,8 +1,8 @@
 // ********************************** Imports **********************************
 //
 // getMoviesTitle function and other AI functions from API file
-import {getMovieByTitle, getMovies, deleteMovie, createMovie, editMovie} from './movies-api.js';
-import {myAddModel} from './modal.js';
+import {getMovieByTitle, getMovies, deleteMovie, createMovie} from './movies-api.js';
+import {myAddModel, setDataToModal} from './modal.js';
 
 //********************************** Variable Declarations Logic **********************************
 
@@ -11,7 +11,7 @@ const moviesFromJsonArr = await getMovies();
 
 // combination of the json file movies and newly added movies from the web page, spread operator creates a completely new array and reference different than the moviesFromJsonArr array, same exact data though, this spread operator is needed so that the newly added movies arent updating the moviesFromJsonArr variable.
 
-const allMovies = [...moviesFromJsonArr];
+export const allMovies = [...moviesFromJsonArr];
 
 //**********************************Api Calls Logic **********************************
 // Calls add function of movie by id
@@ -20,9 +20,6 @@ async function addMovie(movie) {
     return await createMovie(movie);
 }
 
-async function updateMovie (id, movie) {
-    return await editMovie(id, movie)
-}
 
 // Gets the Movie Details From API needed that arent provided by the user
 async function getOtherMovieDetails(title, year) {
@@ -33,8 +30,6 @@ async function getOtherMovieDetails(title, year) {
 
 // Event Listener for addMovieButton
 document.querySelector("#addMovieButton").addEventListener("click", async (e) => {
-    showLoader();
-    startLoadingTimer(3350);
     myAddModel.hide();
     let movieTitle = document.getElementById("title").value
     let newMovieTitle = movieTitle.replace(' ', '+');
@@ -66,8 +61,6 @@ document.querySelector("#addMovieButton").addEventListener("click", async (e) =>
 
 // Calls delete function of movie by id
 async function removeMovie(id) {
-    showLoader();
-    startLoadingTimer(3350);
     await deleteMovie(id);
     let newMovieArray = allMovies.filter((movie) => movie.id !== id);
     await displayMovies(newMovieArray);
@@ -85,30 +78,53 @@ function addDeleteButton() {
 
 //---------------------------------------------------- Edit Movie button for adding to specific movie card, used in insertMovieDetails function
 
-function addEditButton() {
-      let editButton = document.createElement('button');
-  // editButton.classList.add(...['btn', 'btn-primary']);
-  editButton.className = "btn btn-primary";
-  editButton.setAttribute('data-bs-toggle', "modal");
-  editButton.setAttribute('data-bs-target', "#editModal");
+function addEditButton(movie) {
+    let editButton = document.createElement('button');
+    editButton.className = "btn btn-primary";
+    editButton.setAttribute('data-bs-toggle', "modal");
+    editButton.setAttribute('data-bs-target', "#editModal");
+    editButton.addEventListener('click', function (event) {
+        let editModalDialog = modalHtmlCreation(movie);
+        setDataToModal(editModalDialog.content);
+    })
 
-  editButton.type = 'button';
-  editButton.innerText = "EDIT";
-  return editButton;
+    editButton.type = 'button';
+    editButton.innerText = "EDIT";
+    return editButton;
+}
+
+
+function modalHtmlCreation(movie) {
+    let content =
+        `<form id="editMovieForm">
+
+        <input type="hidden" id="movieId" value="${movie.id}" name="id" class="form-control" required>
+        <label for="editTitle" class="col-form-label">Movie Title: </label>
+        <input type="text" id="editTitle" value="${movie.title}" name="title" class="form-control" required>
+
+            <label for="editYear" class="col-form-label">Year: </label>
+            <input type="text" id="editYear" value="${movie.year}" class="form-control" name="year">
+
+          <label for="editRated" class="col-form-label">Rated: </label>
+          <input type="text" value="${movie.rated}" id="editRated" class="form-control" name="rated" required>
+    
+    </form>`
+    return {content};
 }
 
 //********************************** Movie Data Inserting to Card Logic **********************************
 
 // ---------------------------------------------------------------------------- Inserting Movie Details on Cards
 async function insertMovieDetails(newMovieCard, movie) {
-    let getMoviePoster = await getMovieByTitle(movie.title, movie.year)
-    newMovieCard.querySelector(".card-img-top").src = getMoviePoster.Poster
-    newMovieCard.querySelector(".movieTitle").innerHTML = `<strong>Title:</strong> ${movie.title}`
-    newMovieCard.querySelector(".movieRated").innerHTML = `<strong>Rated:</strong> ${movie.rated}`
-    newMovieCard.querySelector(".movieYear").innerHTML = `<strong>Year:</strong> ${movie.year}`
-    newMovieCard.querySelector(".movieRating").innerHTML = `<strong>Rating:</strong> ${movie.rating}`
-    newMovieCard.querySelector(".movieSummary").innerHTML = `<strong>Summary:</strong> ${movie.movieSummary}`
-    let deleteButton = addDeleteButton(movie)
+    let getOtherMovieDetails = await getMovieByTitle(movie.title, movie.year)
+    newMovieCard.querySelector(".card-img-top").src = getOtherMovieDetails.Poster
+    newMovieCard.querySelector(".card-img-top").alt = movie.title || getOtherMovieDetails.Title;
+    newMovieCard.querySelector(".movieTitle").innerHTML = `<strong>Title:</strong> ${movie.title || getOtherMovieDetails.Title}`
+    newMovieCard.querySelector(".movieRated").innerHTML = `<strong>Rated:</strong> ${movie.rated || getOtherMovieDetails.Rated}`
+    newMovieCard.querySelector(".movieYear").innerHTML = `<strong>Year:</strong> ${movie.year || getOtherMovieDetails.Year}`
+    // newMovieCard.querySelector(".movieRating").innerHTML = `<strong>Rating:</strong> ${movie.rating || 5}`
+    newMovieCard.querySelector(".movieSummary").innerHTML = `<strong>Summary:</strong> ${movie.movieSummary || getOtherMovieDetails.Plot}`
+    let deleteButton = addDeleteButton()
     let editButton = addEditButton(movie)
     deleteButton.addEventListener('click', async (event) => {
         await removeMovie(movie.id)
@@ -128,7 +144,7 @@ async function insertMovieDetails(newMovieCard, movie) {
 
 // Looping through the json and creating a card for each movie in the array, also runs function to insert movie data on each card
 
-async function displayMovies(movies) {
+export async function displayMovies(movies) {
     document.getElementById('movie-container').innerHTML = "";
     for (let i = movies.length - 1; i >= 0; i--) {
         let newCard = createCard()
@@ -160,10 +176,22 @@ function createCard() {
     movieRated.classList.add("card-text", "movieRated");
 
     const movieYear = document.createElement("p");
-    movieRated.classList.add("card-text", "movieYear");
+    movieYear.classList.add("card-text", "movieYear");
 
     const movieRating = document.createElement("p");
     movieRating.classList.add("card-text", "movieRating");
+
+    // Generate a random number of checked stars (between 1 and 5)
+    const randomCheckedStars = Math.floor(Math.random() * 5) + 1;
+
+    // Add the star icons dynamically based on the random number
+    const starIcons = document.createElement('div');
+    for (let i = 0; i < randomCheckedStars; i++) {
+        const star = document.createElement('span');
+        star.classList.add('fa', 'fa-star', 'checked');
+        starIcons.appendChild(star);
+    }
+    movieRating.appendChild(starIcons);
 
     const movieSummary = document.createElement("p");
     movieSummary.classList.add("card-text", "movieSummary");
@@ -173,18 +201,20 @@ function createCard() {
     movieCardBody.appendChild(movieTitle);
     movieCardBody.appendChild(movieRated);
     movieCardBody.appendChild(movieYear);
-    movieCardBody.appendChild(movieRating);
+    // movieCardBody.appendChild(movieRating);
+    movieCardBody.appendChild(starIcons);
     movieCardBody.appendChild(movieSummary);
 
     return movieCard;
 }
 
 // puts loader on the screen and hides movies
-function showLoader() {
+export function showLoader() {
     // grab loader html and adds the show class, this adds the loader from the page
     document.getElementById("loader").classList.add("show")
     // grab movie-container html and remove the show class, this removes the movie container from the page
-    document.getElementById("movie-container").classList.remove("show")
+    document.getElementById("movie-container").classList.remove("show");
+
 }
 
 /*--------------------------------------------------------------------------------- Showing and Hiding Loader/Movies-*/
@@ -196,19 +226,20 @@ function showMovies() {
     // grab loader html and removes the show class, this is needed because the loader may have the show class still due to the initial page loading or other rendering such as a search function being ran or a movie being added.
     document.getElementById("loader").classList.remove("show");
     document.getElementById("movie-container").classList.add("show");
+    document.getElementById("movie-container").classList.remove("hide");
 }
 
 /*--------------------------------------------------------------------------------- 3 Second Timer for loading image-*/
 
 // the timer will be 3350 in production, but for development and testing it will be 0
-function startLoadingTimer(timer) {
+export function startLoadingTimer(timer) {
     setTimeout(() => {
         showMovies()
-    }, timer || 0)
+    }, timer)
 }
 
 // shows Loaders
-showLoader();
+showLoader(3350);
 // then starts timer for the loader that will event, this is a simulated loading process because the movie data fetch is too fast and we want to give the illusion to the user that the page is actually loading
 startLoadingTimer();
 

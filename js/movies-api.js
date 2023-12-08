@@ -55,7 +55,7 @@ export const createMovie = async (movie) => {
 /*--------------------------------------------------------------------------------- Edit Movie with PUT -*/
 export const editMovie = async (id, movie) => {
     try {
-        const url = `http://localhost:3000/movie/${id}`;
+        const url = `http://localhost:3000/movies/${id}`;
         const options = {
             method: 'PUT',
             headers: {

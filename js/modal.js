@@ -1,3 +1,10 @@
+import {editMovie} from "./movies-api.js";
+import {allMovies, displayMovies} from "./movies.js";
+
+async function updateMovie(id, movie) {
+    return await editMovie(id, movie)
+}
+
 export const myAddModel = new bootstrap.Modal('#addModal', {
     keyboard: true,
 })
@@ -6,20 +13,8 @@ const addModel = document.getElementById('addModal')
 
 if (addModel) {
     addModel.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget;
-
-        // Extract info from data-bs-* attributes
-        const recipient = button.getAttribute('data-bs-whatever')
-        // If necessary, you could initiate an Ajax request here
-        // and then do the updating in a callback.
-
-        // Update the modal's content.
         const modalTitle = addModel.querySelector('.modal-title')
-        const modalBodyInput = addModel.querySelector('.modal-body input')
-
         modalTitle.textContent = `Add a Movie`;
-
     })
 }
 
@@ -30,18 +25,50 @@ export const myEditModel = new bootstrap.Modal('#editModal', {
 const editModal = document.getElementById('editModal')
 if (editModal) {
     editModal.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        const recipient = button.getAttribute('data-bs-whatever')
-        // If necessary, you could initiate an Ajax request here
-        // and then do the updating in a callback.
+        document.getElementById('editMovieButton').addEventListener('click', saveEdits);
 
-        // Update the modal's content.
-        const modalTitle = editModal.querySelector('.modal-title')
-        const modalBodyInput = editModal.querySelector('.modal-body input')
-
-
-        modalBodyInput.value = recipient
     })
+
+
+//     on hide
+    editModal.addEventListener('hide.bs.modal', event => {
+        document.getElementById('editMovieButton').removeEventListener('click', saveEdits);
+    });
+
+}
+
+async function saveEdits() {
+    // Retrieve data from the modal elements
+    // input1
+    let movieId = +document.getElementById('movieId').value;
+    let title = document.getElementById('editTitle').value;// input2
+    let year = document.getElementById('editYear').value; // input3
+    let rated = document.getElementById('editRated').value;  // input4
+
+    myEditModel.hide();
+
+    let updatedMovie = await updateMovie(movieId, {rated, title, year});
+
+    let fullMovie = {
+        title: updatedMovie.title,
+        year: updatedMovie.year,
+        rated: updatedMovie.rated,
+        rating: 5,
+        movieSummary: updatedMovie.movieSummary,
+        id: updatedMovie.id
+    }
+
+
+    let updatedIndex = allMovies.findIndex((movie) => movie.id === fullMovie.id)
+
+    allMovies.splice(updatedIndex, 1, fullMovie);
+    // Renders new Movie Array
+
+    await displayMovies(allMovies);
+}
+
+
+export function setDataToModal(content) {
+    // Set the title and content to the modal
+    document.getElementById('modalBody').innerHTML = content;
 }
