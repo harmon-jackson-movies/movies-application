@@ -165,8 +165,22 @@ function createCard() {
     const movieRating = document.createElement("p");
     movieRating.classList.add("card-text", "movieRating");
 
+    // Generate a random number of checked stars (between 1 and 5)
+    const randomCheckedStars = Math.floor(Math.random() * 5) + 1;
+
+    // Add the star icons dynamically based on the random number
+    const starIcons = document.createElement('div');
+    for (let i = 0; i < randomCheckedStars; i++) {
+        const star = document.createElement('span');
+        star.classList.add('fa', 'fa-star', 'checked');
+        starIcons.appendChild(star);
+    }
+    movieRating.appendChild(starIcons);
+
     const movieSummary = document.createElement("p");
     movieSummary.classList.add("card-text", "movieSummary");
+
+
 
     movieCard.appendChild(movieCardImage);
     movieCard.appendChild(movieCardBody);
@@ -174,10 +188,16 @@ function createCard() {
     movieCardBody.appendChild(movieRated);
     movieCardBody.appendChild(movieYear);
     movieCardBody.appendChild(movieRating);
+    movieCardBody.appendChild(starIcons);
     movieCardBody.appendChild(movieSummary);
+
+
+
 
     return movieCard;
 }
+
+
 
 // puts loader on the screen and hides movies
 function showLoader() {
