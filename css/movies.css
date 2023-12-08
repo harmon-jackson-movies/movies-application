@@ -1,10 +1,9 @@
-
 /*--------------------------------------------------------------------Loading Image Animation*/
-body{
+body {
     background-color: black !important;
 }
 
-.loader-container{
+.loader-container {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -12,32 +11,35 @@ body{
     z-index: 2500;
 
 }
+
 .loader {
     width: 500px;
     height: 250px;
     position: fixed;
     right: 40%;
-    bottom:45%;
+    bottom: 45%;
     z-index: 3000;
     background-color: black;
 }
 
 .hide, .loader.hide, .movie-container.hide {
     display: none;
-
 }
 
 .show, .loader.show, .movie-container.show {
     display: flex;
-
 }
 
 .circle {
-    fill: #F25A33;
+    fill: red;
 }
 
 .circle-one {
-    opacity: 0;
+    fill: transparent;
+    stroke-dasharray: 46.82, 93.64;
+    stroke-dashoffset: 46.82;
+    stroke: red;
+    opacity: 1;
 }
 
 .svg-stroke {
@@ -111,21 +113,25 @@ body{
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top: 35px;
-
 }
 
 .card {
+    position: relative;
+    transition: transform 0.3s ease-in-out; /* Add a smooth transition effect */
+}
 
+.card:hover {
+    transform: scale(1.05); /* Increase the size when hovered */
 }
 
 .card-img-top, .card {
     width: 15%;
     height: 100%;
-
+    margin-bottom: 35px;
 }
 
-#movieForm {
-    color: purple;
+.card-img-top {
+    height: 450px;
 }
 
 /*-------------------------------------------------------------------- Nav Bar*/
@@ -145,9 +151,50 @@ body{
 }
 
 body {
-    background: linear-gradient(to bottom, #800080, #000000);
+    background: linear-gradient(to bottom, #af9be5, #000000);
 }
 
+.navbar-brand .green-u::first-letter {
+    color: green;
+}
+
+.card-img-top, .card {
+    width: 15%;
+    height: 100%;
+    margin-bottom: 35px;
+}
+
+.card-img-top {
+    height: 450px;
+}
+
+.card {
+    position: relative;
+    overflow: hidden; /* Ensure overflow is hidden to contain absolute positioning */
+}
+
+.card-buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px; /* Add padding for spacing */
+    background-color: rgba(255, 255, 255, 0.9); /* Adjust background color and transparency */
+    text-align: center; /* Center the buttons horizontally */
+}
+
+.card-buttons button {
+    margin: 0 5px; /* Adjust margin for spacing between buttons */
+}
+
+.checked {
+    color: orange;
+}
+
+button#addModalButton {
+    position: absolute;
+    right: 315px;
+}
 
 
 
